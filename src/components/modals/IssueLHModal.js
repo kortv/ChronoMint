@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Dialog, FlatButton, RaisedButton} from 'material-ui';
 import IssueLHForm from '../forms/IssueLH/IssueLHForm';
-import {proposeLOC, updateLOC, removeLOC} from '../../redux/ducks/locs/data';
+import {reissueAsset} from '../../redux/ducks/locs/data';
 import globalStyles from '../../styles';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
@@ -18,16 +18,10 @@ class IssueLHModal extends Component {
     handleSubmit = (values) => {
         let account = localStorage.getItem('chronoBankAccount');
         let jsValues = values.toJS();
-        let address = values.address;
-        jsValues = {...jsValues, issueAmount: new BigNumber(jsValues.issueAmount)};
-        let changedProps = {};
-        const x = this.props.loc;
-        for(let key in jsValues) {
-            if (jsValues.hasOwnProperty(key) && +jsValues[key] !== +x[key] && jsValues[key] !== x[key]){
-                changedProps[key] = jsValues[key];
-            }
-        }
-        updateLOC({...changedProps, account, address});
+        let address = jsValues.address;
+        let issueAmount = jsValues.issueAmount;
+        // jsValues = {...jsValues, issueAmount: new BigNumber(jsValues.issueAmount)};
+        reissueAsset({account, address, issueAmount});
         this.props.hideModal();
     };
 

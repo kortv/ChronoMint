@@ -57,6 +57,19 @@ const updateLOC = (data) => {
     }
 };
 
+const reissueAsset = (data) => {
+    let {address, issueAmount}  = data;
+
+    // const callback = (valueName, value)=>{
+    //     updateLOCinStore(valueName, value, address);
+    // };
+    //
+
+    AppDAO.reissueAsset('LHT', issueAmount, address);//.then(
+    //     () => callback(settingName, value)
+    // );
+};
+
 const proposeLOC = (props) => {
     let {locName, website, issueLimit, publishedHash, expDate, account} = props;
     AppDAO.proposeLOC(locName, website, issueLimit, publishedHash, expDate, account)
@@ -80,5 +93,6 @@ export {
     updateLOC,
     removeLOC,
     loadLOC,
-    handleNewLOC
+    reissueAsset,
+    handleNewLOC,
 }

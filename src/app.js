@@ -25,6 +25,7 @@ class App {
             injectTapEventPlugin();
 
             // TODO: remove;
+
             let exchangeAddress;
             Promise.all([
                 AppDAO.reissueAsset('LHT', 2500, localStorage.getItem('chronoBankAccount')),
@@ -44,9 +45,17 @@ class App {
 
             // TODO: remove    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             const accounts = AppDAO.web3.eth.accounts;
-            AppDAO.isCBE(accounts[1]).then(cbe => {
-                if (!cbe) {
-                    AppDAO.chronoMint.then(deployed => deployed.addKey(accounts[1], {from: accounts[0], gas: 3000000})).then( () => {});
+            AppDAO.isCBE(accounts[0]).then(cbe => {
+                if (cbe) {
+                    AppDAO.isCBE(accounts[1]).then(cbe => {
+                        if (!cbe) {
+                            AppDAO.chronoMint.then(deployed => deployed.addKey(accounts[1], {
+                                from: accounts[0],
+                                gas: 3000000
+                            })).then(() => {
+                            });
+                        }
+                    });
                 }
             });
             //TODO   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

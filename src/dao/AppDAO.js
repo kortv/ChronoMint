@@ -135,6 +135,7 @@ class AppDAO extends AbstractContractDAO {
      * @return Promise bool
      */
     isCBE = (account: string) => {
+        return new Promise((resolve) => {resolve(false)});
         return this.contract.then(deployed => deployed.isAuthorized.call(account, {from: account}));
     };
 
