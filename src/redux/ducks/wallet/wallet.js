@@ -25,7 +25,7 @@ const updateLHTBalance = () => (dispatch) => {
 
 const updateETHBalance = () => (dispatch) => {
     dispatch(setETHBalanceStart());
-    TimeProxyDAO.web3.eth.getBalance(localStorage.getItem('chronoBankAccount'), (balance) => {
+    TimeProxyDAO.web3.eth.getBalance(localStorage.getItem('chronoBankAccount'), (e, balance) => {
         dispatch(setETHBalanceSuccess(balance.toNumber()));
     });
 };
