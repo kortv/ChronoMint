@@ -383,4 +383,4 @@ class AppDAO extends AbstractContractDAO {
     };
 }
 
-export default new AppDAO();
+//export default new AppDAO();

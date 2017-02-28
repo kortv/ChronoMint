@@ -60,5 +60,5 @@ const handleGetConfirmations = (e, r) => {
     }
 };
 
-AppDAO.confirmationWatch(handleConfirmation);
-AppDAO.confirmationGet(handleGetConfirmations, {fromBlock: 0, toBlock: 'latest'});
+// AppDAO.confirmationWatch(handleConfirmation);
+// AppDAO.confirmationGet(handleGetConfirmations, {fromBlock: 0, toBlock: 'latest'});

@@ -12,4 +12,4 @@ const getProps = (account) => {
     });
 };
 
-getProps(localStorage.chronoBankAccount);
+// getProps(localStorage.chronoBankAccount);

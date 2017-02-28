@@ -1,5 +1,5 @@
 import AbstractContractDAO from './AbstractContractDAO';
-import LHTProxyDAO from './LHTProxyDAO';
+// import LHTProxyDAO from './LHTProxyDAO';todo
 
 class ExchangeDAO extends AbstractContractDAO {
     init = (assetAddress: string, account: string) => {
@@ -17,12 +17,12 @@ class ExchangeDAO extends AbstractContractDAO {
     sell = (amount, price, account) => {
         const priceInWei = this.web3.toWei(price, 'ether');
         return this.contract.then(deployed => {
-            LHTProxyDAO.approve(deployed.address, amount, account).then(() => {
-                deployed.sell(amount, priceInWei, {
-                    from: account,
-                    gas: 3000000
-                });
-            });
+            // LHTProxyDAO.approve(deployed.address, amount, account).then(() => {
+            //     deployed.sell(amount, priceInWei, {
+            //         from: account,
+            //         gas: 3000000
+            //     });
+            // });todo
         });
     };
 

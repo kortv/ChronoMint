@@ -1,7 +1,7 @@
 import AppDAO from '../../../dao/AppDAO';
 import {createPendingAction, updatePendingAction, removePendingAction} from './reducer';
 import {store} from '../../configureStore';
-import {loadLOC} from '../locs/data';
+// import {loadLOC} from '../locs/data';
 import {removeLOCfromStore} from '../locs/locs';
 import {notify} from '../../../redux/ducks/notifier/notifier';
 import PendingOperationNoticeModel from '../../../models/notices/PendingOperationNoticeModel';
@@ -49,11 +49,11 @@ const handlePending = (operation, account) => {
                     r => {
                         const addr = operationObj.targetAddress();
                         if (r.includes(addr)) {
-                            loadLOC(addr)
+                            // loadLOC(addr)
                         } else {
                             removeLOCfromStore(addr);
                         }
-                        r.forEach(loadLOC)
+                        // r.forEach(loadLOC)
                     }
                 );
             }
@@ -110,7 +110,7 @@ const handleRevokeOperation = (operation, account) => (dispatch) => {
 export {
     revoke,
     confirm,
-    getPendings,
-    handleConfirmOperation,
-    handleRevokeOperation,
+    // getPendings,
+    // handleConfirmOperation,
+    // handleRevokeOperation,
 }

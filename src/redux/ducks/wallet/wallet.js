@@ -1,5 +1,5 @@
 import TimeProxyDAO from '../../../dao/TimeProxyDAO';
-import LHTProxyDAO from '../../../dao/LHTProxyDAO';
+// import LHTProxyDAO from '../../../dao/LHTProxyDAO';todo
 import {
     setTimeBalanceStart,
     setTimeBalanceSuccess,
@@ -17,32 +17,33 @@ const updateTimeBalance = () => (dispatch) => {
 
 const updateLHTBalance = () => (dispatch) => {
     dispatch(setLHTBalanceStart());
-    LHTProxyDAO.getAccountBalance(localStorage.getItem('chronoBankAccount'))
-        .then(balance => {
-            dispatch(setLHTBalanceSuccess(balance.toNumber()))
-        });
+    // LHTProxyDAO.getAccountBalance(localStorage.getItem('chronoBankAccount'))todo
+    //     .then(balance => {
+    //         dispatch(setLHTBalanceSuccess(balance.toNumber()))
+    //     });
 };
 
 const updateETHBalance = () => (dispatch) => {
     dispatch(setETHBalanceStart());
-    const balance = TimeProxyDAO.web3.fromWei(TimeProxyDAO.web3.eth.getBalance(localStorage.getItem('chronoBankAccount')));
-    dispatch(setETHBalanceSuccess(balance.toNumber()));
+    TimeProxyDAO.web3.eth.getBalance(localStorage.getItem('chronoBankAccount'), (balance) => {
+        dispatch(setETHBalanceSuccess(balance.toNumber()));
+    });
 };
 
 const transferEth = (amount, recipient) => (dispatch) => {
-    LHTProxyDAO.web3.eth.sendTransaction({
-        from: localStorage.getItem('chronoBankAccount'),
-        to: recipient,
-        value: LHTProxyDAO.web3.toWei(parseFloat(amount, 10), "ether")
-    });
+    // LHTProxyDAO.web3.eth.sendTransaction({todo
+    //     from: localStorage.getItem('chronoBankAccount'),
+    //     to: recipient,
+    //     value: LHTProxyDAO.web3.toWei(parseFloat(amount, 10), "ether")
+    // });
 
     dispatch(updateETHBalance());
 };
 
 const transferLht = (amount, recipient) => (dispatch) => {
     dispatch(setLHTBalanceStart());
-    LHTProxyDAO.transfer(amount, recipient, localStorage.getItem('chronoBankAccount'))
-        .then(() => dispatch(updateLHTBalance()));
+    // LHTProxyDAO.transfer(amount, recipient, localStorage.getItem('chronoBankAccount'))todo
+    //     .then(() => dispatch(updateLHTBalance()));
 };
 
 const transferTime = (amount, recipient) => (dispatch) => {

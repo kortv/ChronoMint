@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import AbstractProxyDAO from './AbstractProxyDAO';
 import AppDAO from './AppDAO';
 
@@ -13,4 +14,4 @@ class TimeProxyDAO extends AbstractProxyDAO {
     };
 }
 
-export default new TimeProxyDAO(require('../contracts/ChronoBankAssetProxy.json'));
+export default new TimeProxyDAO(require('../contracts/ChronoBankAssetProxy.json'), new BigNumber('0x6531f133e6DeeBe7F2dcE5A0441aA7ef330B4e53'));//todo

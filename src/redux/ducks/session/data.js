@@ -56,96 +56,31 @@ const checkLOCControllers = (index, LOCCount, account) => {
 
 const checkRole = (account) => (dispatch) => {
     dispatch(createSessionStart());
-    AppDAO.isCBE(account).then(cbe => {
-            if (cbe) {
-                dispatch(createSessionSuccess({
-                    account,
-                    profile: {
-                        name: 'CBE Admin',
-                        email: 'cbe@chronobank.io',
-                        type: 'cbe'
-                    }
-                }));
-            } else {
-                AppDAO.getLOCCount(account)
-                    .then(r => {
-                        checkLOCControllers(0, r.toNumber(), account).then(r => {
-                            if (r) {
-                                dispatch(createSessionSuccess({
-                                    account,
-                                    profile: {
-                                        name: 'LOC Admin',
-                                        email: 'loc@chronobank.io',
-                                        type: 'loc'
-                                    }
-                                }));
-                            } else {
-                                dispatch(createSessionSuccess({
-                                    account,
-                                    profile: {
-                                        name: 'ChronoMint User',
-                                        email: 'user@chronobank.io',
-                                        type: 'user'
-                                    }
-                                }));
-                                dispatch(push('/wallet'));
-                            }
-                        });
-                    });
-            }
-        })
-        .catch(error => console.error(error));
+
+    dispatch(createSessionSuccess({
+        account,
+        profile: {
+            name: 'ChronoMint User',
+            email: 'user@chronobank.io',
+            type: 'user'
+        }
+    }));
 };
 
 const login = (account) => (dispatch) => {
     let next = localStorage.getItem('next');
     localStorage.removeItem('next');
     dispatch(createSessionStart());
-    AppDAO.isCBE(account)
-        .then(cbe => {
-            if (cbe) {
-                dispatch(createSessionSuccess({
-                    account,
-                    profile: {
-                        name: 'CBE Admin',
-                        email: 'cbe@chronobank.io',
-                        type: 'cbe'
-                    }
-                }));
-                next = next?next:'/';
-                dispatch(replace(next));
-            } else {
-                AppDAO.getLOCCount(account)
-                    .then(r => {
-                        checkLOCControllers(0, r.toNumber(), account).then(r => {
-                            if (r) {
-                                dispatch(createSessionSuccess({
-                                    account,
-                                    profile: {
-                                        name: 'LOC Admin',
-                                        email: 'loc@chronobank.io',
-                                        type: 'loc'
-                                    }
-                                }));
-                                next = next?next:'/';
-                                dispatch(replace(next));
-                            } else {
-                                dispatch(createSessionSuccess({
-                                    account,
-                                    profile: {
-                                        name: 'ChronoMint User',
-                                        email: 'user@chronobank.io',
-                                        type: 'user'
-                                    }
-                                }));
-                                next = next?next:'/wallet';
-                                dispatch(replace(next));
-                            }
-                        });
-                    });
-            }
-        })
-        .catch(error => console.error(error));
+    dispatch(createSessionSuccess({
+        account,
+        profile: {
+            name: 'ChronoMint User',
+            email: 'user@chronobank.io',
+            type: 'user'
+        }
+    }));
+    next = next?next:'/wallet';
+    dispatch(replace(next));
 };
 
 const logout = () => (dispatch) => {

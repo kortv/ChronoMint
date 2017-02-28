@@ -85,8 +85,8 @@ const handleNewLOC = (address) => (dispatch) => {
     dispatch(notify(new LOCNoticeModel({loc})));
 };
 
-AppDAO.getLOCs(account)
-    .then(r => r.forEach(loadLOC));
+// AppDAO.getLOCs(account)
+//     .then(r => r.forEach(loadLOC));
 
 export {
     proposeLOC,

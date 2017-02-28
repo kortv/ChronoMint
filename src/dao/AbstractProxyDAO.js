@@ -2,6 +2,7 @@ import AbstractContractDAO from './AbstractContractDAO';
 
 class AbstractProxyDAO extends AbstractContractDAO {
     constructor(json, at = null) {
+        debugger;
         super(json, at);
         if (new.target === AbstractProxyDAO) {
             throw new TypeError('Cannot construct AbstractProxyDAO instance directly');

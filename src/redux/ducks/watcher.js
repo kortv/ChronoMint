@@ -1,10 +1,10 @@
 import AppDAO from '../../dao/AppDAO';
 import {watchUpdateCBE, watchRevokeCBE} from './settings/cbe';
 import {watchUpdateToken} from './settings/tokens';
-import {handleNewLOC} from './locs/data';
-import {handleConfirmOperation, handleRevokeOperation} from './pendings/data';
+// import {handleNewLOC} from './locs/data';
+// import {handleConfirmOperation, handleRevokeOperation} from './pendings/data';
 
-export const watcher = (account: string) => (dispatch) => {
+const watcher = (account: string) => (dispatch) => {
     // Important! Only CBE can watch events below
     AppDAO.isCBE(account).then(isCBE => {
         if (!isCBE) {

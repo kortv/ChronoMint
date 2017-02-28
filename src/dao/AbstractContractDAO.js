@@ -13,10 +13,10 @@ class AbstractContractDAO {
         const hostname = (host === '0.0.0.0') ? window.location.hostname : host;
         this.web3Loc = `http://${hostname}:${port}`;
 
+        debugger;
         /*global web3*/
         this.web3 = typeof web3 !== 'undefined' ?
             new Web3(web3.currentProvider) : new Web3(new Web3.providers.HttpProvider(this.web3Loc));
-
         const contract = truffleContract(json);
         contract.setProvider(this.web3.currentProvider);
 
