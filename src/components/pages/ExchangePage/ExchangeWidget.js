@@ -6,7 +6,7 @@ import {
     CircularProgress
 } from 'material-ui';
 import ExchangeForm from './ExchangeForm';
-import ExchangeDAO from '../../../dao/ExchangeDAO';
+// import ExchangeDAO from '../../../dao/ExchangeDAO';
 
 import globalStyles from '../../../styles';
 
@@ -19,17 +19,17 @@ const mapStateToProps = (state) => ({
 class ExchangeWidget extends Component {
 
     componentDidMount() {
-        ExchangeDAO.watchError();
+        // ExchangeDAO.watchError();
     }
 
     exchangeLHTOperation = (values) => {
         const {exchange} = this.props;
         if (values.get('buy')) {
             const {sellPrice} = exchange.get(values.get('currency'));
-            ExchangeDAO.buy(values.get('amount') * 100, sellPrice, values.get('account'));
+            // ExchangeDAO.buy(values.get('amount') * 100, sellPrice, values.get('account'));
         } else {
             const {buyPrice} = exchange.get(values.get('currency'));
-            ExchangeDAO.sell(values.get('amount') * 100, buyPrice, values.get('account'));
+            // ExchangeDAO.sell(values.get('amount') * 100, buyPrice, values.get('account'));
         }
     };
 

@@ -2,8 +2,8 @@ import {Map} from 'immutable';
 import {showSettingsTokenViewModal} from '../../../redux/ducks/ui/modal';
 import {showSettingsTokenModal} from '../../../redux/ducks/ui/modal';
 import TokenContractModel from '../../../models/TokenContractModel';
-import AppDAO from '../../../dao/AppDAO';
-import PlatformDAO from '../../../dao/PlatformDAO';
+// import AppDAO from '../../../dao/AppDAO';
+// import PlatformDAO from '../../../dao/PlatformDAO';
 import {notify} from '../../../redux/ducks/notifier/notifier';
 import TokenContractNoticeModel from '../../../models/notices/TokenContractNoticeModel';
 import isEthAddress from '../../../utils/isEthAddress';
@@ -76,13 +76,13 @@ const errorToken = (address: string) => ({type: TOKENS_ERROR, address});
 const listTokens = () => (dispatch) => {
     let list = new Map();
     return new Promise(resolve => {
-        AppDAO.getTokenContracts((contract, total) => {
-            list = list.set(contract.symbol(), contract);
-            if (list.size === total) {
-                dispatch({type: TOKENS_LIST, list});
-                resolve();
-            }
-        });
+        // AppDAO.getTokenContracts((contract, total) => {
+        //     list = list.set(contract.symbol(), contract);
+        //     if (list.size === total) {
+        //         dispatch({type: TOKENS_LIST, list});
+        //         resolve();
+        //     }
+        // });
     });
 };
 
@@ -94,13 +94,13 @@ const listBalances = (token: TokenContractModel, page = 0, address = null) => (d
     return new Promise(resolve => {
         if (address === null) {
             let perPage = 100;
-            PlatformDAO.getHoldersCount().then(balancesNum => {
-                dispatch({type: TOKENS_BALANCES_NUM, num: balancesNum, pages: Math.ceil(balancesNum / perPage)});
-                AppDAO.getTokenBalances(token.symbol(), page * perPage, perPage).then(balances => {
-                    dispatch({type: TOKENS_BALANCES, balances});
-                    resolve();
-                });
-            });
+            // PlatformDAO.getHoldersCount().then(balancesNum => {
+            //     dispatch({type: TOKENS_BALANCES_NUM, num: balancesNum, pages: Math.ceil(balancesNum / perPage)});
+            //     AppDAO.getTokenBalances(token.symbol(), page * perPage, perPage).then(balances => {
+            //         dispatch({type: TOKENS_BALANCES, balances});
+            //         resolve();
+            //     });
+            // });
         } else {
             dispatch({type: TOKENS_BALANCES_NUM, num: 1, pages: 0});
             balances = new Map();
@@ -137,11 +137,11 @@ const formToken = (token: TokenContractModel) => (dispatch) => {
 };
 
 const treatToken = (current: TokenContractModel, newAddress: string, account) => (dispatch) => {
-    return AppDAO.treatToken(current, newAddress, account).then(result => {
-        if (!result) { // success result will be watched so we need to process only false
-            dispatch(errorToken(newAddress));
-        }
-    });
+    // return AppDAO.treatToken(current, newAddress, account).then(result => {
+    //     if (!result) { // success result will be watched so we need to process only false
+    //         dispatch(errorToken(newAddress));
+    //     }
+    // });
 };
 
 const watchUpdateToken = (token: TokenContractModel) => (dispatch) => {
