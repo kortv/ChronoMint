@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import AbstractProxyDAO from './AbstractProxyDAO';
 import AppDAO from './AppDAO';
 

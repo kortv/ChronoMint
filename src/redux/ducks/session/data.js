@@ -68,8 +68,6 @@ const checkRole = (account) => (dispatch) => {
 };
 
 const login = (account) => (dispatch) => {
-    let next = localStorage.getItem('next');
-    localStorage.removeItem('next');
     dispatch(createSessionStart());
     dispatch(createSessionSuccess({
         account,
@@ -79,14 +77,10 @@ const login = (account) => (dispatch) => {
             type: 'user'
         }
     }));
-    next = next?next:'/wallet';
-    dispatch(replace(next));
+    dispatch(replace('/wallet'));
 };
 
 const logout = () => (dispatch) => {
-    const { pathname, search } = location;
-    const next = `${pathname}${search}`;
-    localStorage.setItem('next', next);
     Promise.resolve(dispatch(destroySession()))
         .then(() => dispatch(push('/login')));
 };

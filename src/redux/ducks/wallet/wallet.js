@@ -17,6 +17,7 @@ const updateTimeBalance = () => (dispatch) => {
 
 const updateLHTBalance = () => (dispatch) => {
     dispatch(setLHTBalanceStart());
+    dispatch(setLHTBalanceSuccess(0))
     // LHTProxyDAO.getAccountBalance(localStorage.getItem('chronoBankAccount'))todo
     //     .then(balance => {
     //         dispatch(setLHTBalanceSuccess(balance.toNumber()))
