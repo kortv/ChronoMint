@@ -1,45 +1,15 @@
-import IPFS from 'ipfs'
-import IPFSRepo from 'ipfs-repo'
-import idbBS from 'idb-pull-blob-store'
+import IPFS from 'ipfs-daemon/src/ipfs-browser-daemon'
 
 class IPFSDAO {
-  init (stores = idbBS) {
+  init (stores) {
     return new Promise((resolve, reject) => {
-      const repo = new IPFSRepo('ChronoMint', {stores})
-      const node = new IPFS({
-        repo,
-        EXPERIMENTAL: {
-          pubsub: true
-        }
+      const ipfs = new IPFS({
+        SignalServer: 'star-signal.cloud.ipfs.team' // IPFS dev server
       })
-      const callback = () => {
-        node.load(err => {
-          if (err) {
-            reject(err)
-          }
-          node.goOnline(err => {
-            if (err) {
-              reject(err)
-            }
-            this.node = node
-            resolve(this.getNode())
-          })
-        })
-      }
-      repo.exists((err, exists) => {
-        if (err) {
-          reject(err)
-        }
-        if (exists) {
-          callback()
-        } else {
-          node.init({emptyRepo: true, bits: 2048}, err => {
-            if (err) {
-              reject(err)
-            }
-            callback()
-          })
-        }
+      ipfs.on('ready', () => {
+        console.log(`IPFS Ready. PeerId ${ipfs.PeerId} GatewayAddress ${ipfs.GatewayAddress}`)
+        this.node = ipfs
+        resolve(ipfs)
       })
     })
   }

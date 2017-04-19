@@ -113,12 +113,12 @@
     "exec": "^0.2.1",
     "idb-plus-blob-store": "^1.1.2",
     "idb-pull-blob-store": "^0.5.1",
-    "ipfs": "0.22.0",
-    "ipfs-repo": "0.11.3",
+    "ipfs-daemon": "0.3.1",
+    "ipfs-mini": "^1.1.2",
+    "libp2p-floodsub": "github:libp2p/js-libp2p-floodsub#orbit-floodsub",
     "moment": "^2.17.1",
     "numeral": "^2.0.6",
-    "orbit-db": "^0.16.3",
-    "orbit-db-pubsub": "^0.1.6",
+    "orbit-db": "0.17.1",
     "react": "^15.2.1",
     "react-addons-create-fragment": "latest",
     "react-addons-test-utils": "^15.4.1",
@@ -140,7 +140,7 @@
     "redux-immutable": "^3.0.10",
     "style-loader": "^0.13.1",
     "truffle-contract": "^1.1.9",
-    "web3-provider-engine": "^8.4.0"
+    "web3-provider-engine": "11.0.2"
   },
   "scripts": {
     "start": "node ./scripts/start.js",
@@ -153,7 +153,9 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "specs/init.js",
-    "collectCoverageFrom" : ["src/**/*.js"]
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   },
   "standard": {
     "parser": "babel-eslint",

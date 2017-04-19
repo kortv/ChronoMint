@@ -3,7 +3,7 @@ import fsBS from 'fs-pull-blob-store'
 
 describe('IPFS DAO', () => {
   it('should initialize IPFS', () => {
-    return IPFSDAO.init(fsBS).then(node => {
+    return IPFSDAO.init().then(node => {
       expect(IPFSDAO.getNode()).toEqual(node)
     })
   })

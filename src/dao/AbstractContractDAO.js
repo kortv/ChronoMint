@@ -102,6 +102,8 @@ class AbstractContractDAO {
    * @protected
    */
   _bytes32ToIPFSHash (bytes) {
+    console.log('_bytes32ToIPFSHash')
+    console.log(bytes)
     const string = Buffer.from(bytes.replace(/^0x/, '1220'), 'hex')
     return bs58.encode(string)
   };
@@ -112,6 +114,8 @@ class AbstractContractDAO {
    * @protected
    */
   _IPFSHashToBytes32 (value) {
+    console.log('_IPFSHashToBytes32')
+    console.log(value)
     return `0x${Buffer.from(bs58.decode(value)).toString('hex').substr(4)}`
   };
 
