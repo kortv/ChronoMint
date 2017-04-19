@@ -1,4 +1,4 @@
-import OrbitDB from 'orbit-db'
+// import OrbitDB from 'orbit-db'
 
 /**
  * OrbitDB data access object
@@ -7,36 +7,9 @@ import OrbitDB from 'orbit-db'
 class OrbitDAO {
   init (ipfsNode) {
     if (ipfsNode) {
-      this.db = ipfsNode ? new OrbitDB(ipfsNode).feed('ChronoMint.data') : null
-
-      this.db.load(100).then((loaded) => {
-        console.log(`data has loaded: ${loaded}`)
-        this._logAll()
-      })
-
-      this.db.events.on('ready', (dbname) => {
-        console.log(`OrbitDb Ready [${dbname}].`)
-        this._logAll()
-      })
-
-      this.db.events.on('error', (e) => {
-        console.log('OrbitDb Error.' + e)
-      })
-
-      this.db.events.on('write', (dbname, hash, entry) => {
-        console.log(`OrbitDb write: [${dbname}, ${hash}, ${JSON.stringify(entry)}]`)
-      })
-
-      this.db.events.on('load.progress', (dbname) => {
-        console.log(`OrbitDb load.progress: [${dbname}]`)
-      })
-
-      this.db.events.on('synced', () => {
-        console.log('OrbitDb synced')
-        this._logAll()
-      })
+      this.db = ipfsNode || null
+      console.log(this.db)
     }
-
     this.mockStore = {}
   }
 
@@ -55,9 +28,13 @@ class OrbitDAO {
     if (!this.db) {
       return this._mockPut(value)
     }
-    const ans = this.db.add(value)
-    this.db.load()
-    return ans
+    return new Promise(resolve => {
+      this.db.addJSON(value, (err, result) => {
+        console.log(err, result)
+        resolve(result)
+      })
+      // resolve(value ? (value.hash === hash ? value.payload.value : null) : null)
+    })
   }
 
   /**
@@ -65,13 +42,23 @@ class OrbitDAO {
    * @return {Promise.<any|null>}
    */
   get (hash) {
+    console.log(hash)
     if (!this.db) {
       return this._mockGet(hash)
     }
-    return new Promise(resolve => {
-      this.db.load(100)
-      const value = this.db.get(hash)
-      resolve(value ? (value.hash === hash ? value.payload.value : null) : null)
+    return new Promise((resolve, reject) => {
+      if (hash === 'QmNLei78zWmzUdbeRB3CiUfAizWUrbeeZh5K1rhAQKCh52' ||
+        hash === 'QmNLei78zWmzUdbeRB3CiUfAizWUrbeeZh5K1rhAQKCh51') {
+        resolve(null)
+      } else {
+        this.db.catJSON(hash, (err, result) => {
+          console.log(err, result)
+          if (err) {
+            reject(new Error(err))
+          } else resolve(result)
+        })
+      }
+      // resolve(value ? (value.hash === hash ? value.payload.value : null) : null)
     })
   }
 

@@ -1,16 +1,19 @@
-import IPFS from 'ipfs-daemon/src/ipfs-browser-daemon'
+import IPFS from 'ipfs-mini'
 
 class IPFSDAO {
   init (stores) {
     return new Promise((resolve, reject) => {
-      const ipfs = new IPFS({
-        SignalServer: 'star-signal.cloud.ipfs.team' // IPFS dev server
-      })
-      ipfs.on('ready', () => {
-        console.log(`IPFS Ready. PeerId ${ipfs.PeerId} GatewayAddress ${ipfs.GatewayAddress}`)
-        this.node = ipfs
-        resolve(ipfs)
-      })
+      const infura = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
+      resolve(infura)
+      this.node = infura
+      // const ipfs = new IPFS({
+      //   SignalServer: 'star-signal.cloud.ipfs.team' // IPFS dev server
+      // })
+      // ipfs.on('ready', () => {
+      //   console.log(`IPFS Ready. PeerId ${ipfs.PeerId} GatewayAddress ${ipfs.GatewayAddress}`)
+      //   this.node = ipfs
+      //   resolve(ipfs)
+      // })
     })
   }
 
